@@ -20,11 +20,17 @@ const task = () => {
     }
     taskList.push(task);
     localStorage.setItem("todolist", JSON.stringify(taskList));
-    console.log(JSON.parse(localStorage.getItem("todolist")));
   };
 
-  const getTaskList = () => {
+  const getTaskList = (category = null) => {
     let taskList = JSON.parse(localStorage.getItem("todolist"));
+    if (category != null) {
+      taskList = taskList.filter(task=>{
+        if (task.project == category) {
+          return task.project;
+        }
+      })
+    }
     return taskList;
   };
 
@@ -33,13 +39,13 @@ const task = () => {
       title: this.__title,
       description: this.__description,
       date: this.__date,
-      project:this.__project,
+      project: this.__project,
       priority: this.__priority,
     };
     return taskElement;
   };
 
-  const init = (
+  const createTask = (
     title,
     description,
     date = null,
@@ -54,9 +60,46 @@ const task = () => {
     addTask(newTask());
   };
 
+  const delTask = (id) => {
+    let taskList = getTaskList();
+    taskList.splice(id, 1);
+    localStorage.setItem("todolist", JSON.stringify(taskList));
+  };
+
+  const updateTask = (task) => {
+    let taskList = getTaskList();
+    let index = task.id;
+    delete task.id;
+    taskList[index] = task;
+    localStorage.setItem("todolist", JSON.stringify(taskList));
+  };
+
+  const getTask = (index) => {
+    let taskList = getTaskList();
+    let taskElement = taskList[index];
+    taskElement.id = index;
+    return taskElement;
+  };
+
+  const getProjects = () => {
+    let taskList = getTaskList();
+    let projects = taskList
+      .filter((task) => {
+        if (task.project != "") {
+          return task.project;
+        }
+      })
+      .map((task) => task.project);
+    return new Set(projects);
+  };
+
   return {
-    init,
+    createTask,
     getTaskList,
+    delTask,
+    getTask,
+    updateTask,
+    getProjects,
   };
 };
 

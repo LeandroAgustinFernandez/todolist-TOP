@@ -1,4 +1,37 @@
+*{
+    margin: 0;
+    box-sizing:border-box;
+}
 body{
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+header, footer{
     background-color: black;
-    color:white;
+    color:whitesmoke;
+    padding: 1em;
+}
+main{
+    display: flex;
+    flex:1;
+}
+main > section:first-child {
+    background-color: rgb(58, 58, 129);
+    color:whitesmoke;
+    padding: 1em;
+}
+main > section:last-child {
+    padding: 1em;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+main > section:first-child li{
+    padding: .5em 0;
+}
+.projectlist{
+    padding: .5em 1em;
 }
