@@ -4,6 +4,7 @@ const task = () => {
   let __date;
   let __priority;
   let __project;
+  let __check;
 
   const addTask = (task) => {
     if (localStorage.getItem("todolist") == null) {
@@ -25,11 +26,11 @@ const task = () => {
   const getTaskList = (category = null) => {
     let taskList = JSON.parse(localStorage.getItem("todolist"));
     if (category != null) {
-      taskList = taskList.filter(task=>{
+      taskList = taskList.filter((task) => {
         if (task.project == category) {
           return task.project;
         }
-      })
+      });
     }
     return taskList;
   };
@@ -41,6 +42,7 @@ const task = () => {
       date: this.__date,
       project: this.__project,
       priority: this.__priority,
+      check: this.__check,
     };
     return taskElement;
   };
@@ -50,13 +52,15 @@ const task = () => {
     description,
     date = null,
     project = null,
-    priority = null
+    priority = null,
+    check = null
   ) => {
     this.__title = title;
     this.__description = description;
     this.__date = date;
     this.__priority = priority;
     this.__project = project;
+    this.__check = check;
     addTask(newTask());
   };
 
@@ -93,6 +97,14 @@ const task = () => {
     return new Set(projects);
   };
 
+  const setTaskStatus = (id) => {
+    let taskList = getTaskList();
+    let task = taskList[id];
+    task.check = (task.check) ? null : 1 ;
+    taskList[id] = task;
+    localStorage.setItem("todolist", JSON.stringify(taskList));
+  };
+
   return {
     createTask,
     getTaskList,
@@ -100,6 +112,7 @@ const task = () => {
     getTask,
     updateTask,
     getProjects,
+    setTaskStatus
   };
 };
 

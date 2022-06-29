@@ -6,6 +6,7 @@ body{
    display: flex;
    flex-direction: column;
    min-height: 100vh;
+   background-color:rgb(247, 247, 247);
 }
 header, footer{
     background-color: black;
@@ -34,4 +35,10 @@ main > section:first-child li{
 }
 .projectlist{
     padding: .5em 1em;
+}
+.fa-solid{
+    font-size: 1.3rem;
+}
+.done{
+    color:rgb(158, 157, 157)
 }
