@@ -181,7 +181,7 @@ function setProjectListener() {
     });
   });
 }
-// TODO: REFACTORIZAR
+
 function reloadList() {
   let category = null;
   let data = null;
@@ -329,5 +329,3 @@ export default function init() {
   setActionButtonListener();
   setMenuListener();
 }
-
-//
